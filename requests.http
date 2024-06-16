@@ -1,0 +1,32 @@
+###
+POST http://localhost:3000/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "user": "dani123",
+    "email": "alvaradodaniel128@gmail.com",
+    "password": "12345"
+}
+
+
+###
+GET http://localhost:3000/api/users HTTP/1.1
+
+
+###
+GET http://localhost:3000/api/users/666dd499f7aebb9896e20bca HTTP/1.1
+
+
+###
+PUT http://localhost:3000/api/users/666dd499f7aebb9896e20bca HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "NADSSAD",
+    "age": "4243",
+    "email": "danidasfel.alvarado@ucr.ac.c2r"
+}
+
+
+###
+DELETE http://localhost:3000/api/users/666f0b974552bedbe481597c HTTP/1.1
