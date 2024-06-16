@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 //CREATE USER
-router.post("/users", (req, res) => {
+router.post("/", (req, res) => {
   const user = userSchema(req.body);
   user
     .save()
@@ -14,7 +14,7 @@ router.post("/users", (req, res) => {
 });
 
 //GET USER
-router.get("/users", (req, res) => {
+router.get("/", (req, res) => {
   userSchema
     .find()
     .then((data) => res.json(data))
@@ -22,7 +22,7 @@ router.get("/users", (req, res) => {
 });
 
 //GET USER
-router.get("/users/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   const { id } = req.params;
   userSchema
     .findById(id)
@@ -31,7 +31,7 @@ router.get("/users/:id", (req, res) => {
 });
 
 //ACTUALIZAR UN USUARIO
-router.put("/users/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { name, age, email } = req.body;
   userSchema
@@ -41,7 +41,7 @@ router.put("/users/:id", (req, res) => {
 });
 
 //ELIMINAR UN USUARIO
-router.delete("/users/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   const { id } = req.params;
   userSchema
     .deleteOne({ _id: id })

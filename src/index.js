@@ -13,8 +13,8 @@ const locationRoute = require("./routes/locations")
 //middleware
 app.use(express.urlencoded({ extender: false }));
 app.use(express.json());
-app.use("/user", userRoute);
-app.use("/location", locationRoute);
+app.use("/api/users", userRoute);
+app.use("/api/locations", locationRoute);
 
 
 app.get('/', async (req, res) => {
