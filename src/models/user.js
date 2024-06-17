@@ -13,7 +13,6 @@ const achievementSchema = new mongoose.Schema({
   
   const userSchema = new mongoose.Schema({
     name: String,
-    user: String,
     country: String,
     email: String,
     password: String,
