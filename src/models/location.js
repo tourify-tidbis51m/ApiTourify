@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const gameSchema = new mongoose.Schema({
   questions: [
     {
       question: String,
-      answer: String
-    }
-  ]
+      answer: String,
+    },
+  ],
 });
 
 const locationSchema = new mongoose.Schema({
@@ -25,12 +25,12 @@ const locationSchema = new mongoose.Schema({
       name: String,
       description: String,
       model: String,
-      tipo: String
-    }
+      tipo: String,
+    },
   ],
   game: gameSchema,
   date_start: String,
-  date_end: String
+  date_end: String,
 });
 
-module.exports = mongoose.model('Location', locationSchema);
+module.exports = mongoose.model("Location", locationSchema);

@@ -7,8 +7,7 @@ const port = process.env.PORT || 3000;
 
 //Rutas controladores
 const userRoute = require("./routes/users");
-const locationRoute = require("./routes/locations")
-
+const locationRoute = require("./routes/locations");
 
 //middleware
 app.use(express.urlencoded({ extender: false }));
@@ -16,14 +15,13 @@ app.use(express.json());
 app.use("/api/users", userRoute);
 app.use("/api/locations", locationRoute);
 
-
-app.get('/', async (req, res) => {
-    try {
-      res.send("API FUNCIONANDO APARENTEMENTE");
-    } catch (err) {
-      res.status()
-    }
-  });
+app.get("/", async (req, res) => {
+  try {
+    res.send("API FUNCIONANDO APARENTEMENTE");
+  } catch (err) {
+    res.status();
+  }
+});
 
 //mongodb connection
 mongoose
