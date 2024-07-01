@@ -3,10 +3,49 @@ POST http://localhost:3000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "dani",
-    "email": "dani@gmail.com",
-    "password": "dani"
-}
+    "country": "México",
+    "email": "alvaradodaniel128@gmail.com",
+    "password": "12345",
+    "image": "user.png",
+    "role": "admin",
+    "achievements": [
+      {
+        "id_achievement": "12345"
+      }
+    ],
+    "comments": [
+      {
+        "type": "Suggestion",
+        "description": "Es una pagina a la que le falta..."
+      }
+    ],
+    "name": "Daniel Alvarado"
+  }
+
+  ###
+POST http://localhost:3000/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "country": "México",
+    "email": "alvaradodaniel128@gmail.com",
+    "password": "12345",
+    "image": "user.png",
+    "role": "admin",
+    "achievements": [
+      {
+        "id_achievement": "12345"
+      }
+    ],
+    "comments": [
+      {
+        "type": "Suggestion",
+        "description": "Es una pagina a la que le falta..."
+      }
+    ],
+    "name": "Daniel Alvarado"
+  }
+
 
 
 ###
@@ -14,7 +53,7 @@ GET http://localhost:3000/users HTTP/1.1
 
 
 ###
-GET http://localhost:3000/api/users/666dd499f7aebb9896e20bca HTTP/1.1
+GET http://localhost:3000/api/users/667c6aba6f7d23af59ac11c3 HTTP/1.1
 
 
 ###
@@ -41,10 +80,43 @@ POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-    "email": "hola@gmail.com",
-    "password": "123"
+    "email": "alvaradodaniel128@gmail.com",
+    "password": "12345"
 }
 
 ### //LA RESPONSE EJECUTADA CON EL TOKEN DEL LOGIN PARA TRAERME A UN USUARIO
-GET http://localhost:3000/api/users/user/666fb0de3406c14497446dc0
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZmYjBkZTM0MDZjMTQ0OTc0NDZkYzAiLCJpYXQiOjE3MTg5ODg2OTcsImV4cCI6MTcxODk4ODc1N30.55zNizPskU_33Q6wnvHPjpAjaPwkJJ-WZ5cumluNpg8
+GET http://localhost:3000/api/users/user/666f92553c47469784455e8e
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTk0Mjk4NDcsImV4cCI6MTcxOTQzMzQ0N30.7BX6WdXuqsIF9d9Rx5mw8hEXVkjky5ehSw1TotK9bqk
+
+
+
+### //LA RESPONSE EJECUTADA CON EL TOKEN DEL LOGIN PARA TRAERME A UN USUARIO
+GET http://localhost:3000/  
+
+
+
+### //LA RESPONSE EJECUTADA CON EL TOKEN DEL LOGIN PARA TRAERME A UN USUARIO
+POST http://localhost:3000/api/users/checkuser
+Content-Type: application/json
+
+{
+    "email": "alvaradodaniel128@gmail.com",
+    "password": "12345"
+  }
+
+
+
+### //LA RESPONSE EJECUTADA CON EL TOKEN DEL LOGIN PARA TRAERME A UN USUARIO
+GET http://localhost:3000/api/locations/events
+
+### //LA RESPONSE EJECUTADA CON EL TOKEN DEL LOGIN PARA TRAERME A UN USUARIO
+GET http://localhost:3000/api/locations/all
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTk3MjU3NzEsImV4cCI6MTcxOTcyOTM3MX0.e2USwkIMlZCbir57P7w3CA2yxItF2pGT1afeGt5JjYc
+
+### //LA RESPONSE EJECUTADA CON EL TOKEN DEL LOGIN PARA TRAERME A UN USUARIO
+GET http://localhost:3000/api/locations/historical/666f90583c47469784455e85
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTk3OTAxMzcsImV4cCI6MTcxOTc5MzczN30.dUugktgRA0fVh88GFdinxuHt-QQkDavlR8H-Q3kDLAQ  
+
+### //LA RESPONSE EJECUTADA CON EL TOKEN DEL LOGIN PARA TRAERME A UN USUARIO
+GET http://localhost:3000/api/users/getAchievements/666f92553c47469784455e8e
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTk3OTAxMzcsImV4cCI6MTcxOTc5MzczN30.dUugktgRA0fVh88GFdinxuHt-QQkDavlR8H-Q3kDLAQ  
