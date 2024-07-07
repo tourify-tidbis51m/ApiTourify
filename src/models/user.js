@@ -2,12 +2,10 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const achievementSchema = new mongoose.Schema({
-  id_achievement: String,
+  id_location: String,
 });
 
 const commentSchema = new mongoose.Schema({
-  id_comment: String,
-  type: String,
   description: String,
 });
 
@@ -18,8 +16,14 @@ const userSchema = new mongoose.Schema({
   password: String,
   image: String,
   role: String,
+  country: String,
   achievements: [achievementSchema],
   comments: [commentSchema],
+  models: [
+    {
+      model: String,
+    },
+  ],
 });
 
 userSchema.pre("save", async function (next) {

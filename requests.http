@@ -118,5 +118,32 @@ GET http://localhost:3000/api/locations/historical/666f90583c47469784455e85
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTk3OTAxMzcsImV4cCI6MTcxOTc5MzczN30.dUugktgRA0fVh88GFdinxuHt-QQkDavlR8H-Q3kDLAQ  
 
 ### //LA RESPONSE EJECUTADA CON EL TOKEN DEL LOGIN PARA TRAERME A UN USUARIO
-GET http://localhost:3000/api/users/getAchievements/666f92553c47469784455e8e
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTk3OTAxMzcsImV4cCI6MTcxOTc5MzczN30.dUugktgRA0fVh88GFdinxuHt-QQkDavlR8H-Q3kDLAQ  
+GET http://localhost:3000/api/users/getAchievements/667c6aba6f7d23af59ac11c3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjAyODkzNDEsImV4cCI6MTcyMDI5Mjk0MX0.iwfNEGa3iWr5X7CfSanIXvKDhawVjNyFkYqrHC8WcyE
+
+###
+GET http://localhost:3000/api/users/admin/getcomments
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjAyODkzNDEsImV4cCI6MTcyMDI5Mjk0MX0.iwfNEGa3iWr5X7CfSanIXvKDhawVjNyFkYqrHC8WcyE
+
+
+###
+POST http://localhost:3000/api/locations/addlocation
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjAzMDY0ODMsImV4cCI6MTcyMDMxMDA4M30.82FvffThYYtSKkgaUO4xIn8dn-SpFM3GT5inX92lAmE
+Content-Type: application/json
+
+{
+  "name": "Mi casa",
+  "coordinate": "28.60392954475209, -106.01714628253514",
+  "description": "hola",
+  "year" : "2004",
+  "urlvideo" : "urlhistoricalyt",
+  "image" : "fja.jpg",
+  "pintype": "historical",
+  "loctype": "Lugar historica",
+  "model": "fdasdf.glb"
+}
+
+
+###
+GET http://localhost:3000/api/users/mymodels/667c6aba6f7d23af59ac11c3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjAzMzc3MTMsImV4cCI6MTcyMDM0MTMxM30.sLFjjzdMCQ10lc7DZ6i2h7SKTm7l1ibhJguZKisnjzk

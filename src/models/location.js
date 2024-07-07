@@ -29,8 +29,8 @@ const locationSchema = new mongoose.Schema({
     },
   ],
   game: gameSchema,
-  date_start: String,
-  date_end: String,
+  date: String,
+  time: String,
 });
 
 module.exports = mongoose.model("Location", locationSchema);
