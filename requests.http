@@ -147,3 +147,8 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/api/users/mymodels/667c6aba6f7d23af59ac11c3
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjAzMzc3MTMsImV4cCI6MTcyMDM0MTMxM30.sLFjjzdMCQ10lc7DZ6i2h7SKTm7l1ibhJguZKisnjzk
+
+
+###
+GET http://localhost:3000/api/locations/questions/666f90583c47469784455e87
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjAzOTc4ODgsImV4cCI6MTcyMDQwMTQ4OH0.7adoxZCnmIz8vvVJu80jNRrSkr9rjWmFzPW8iiDnyaQ

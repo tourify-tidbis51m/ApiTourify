@@ -76,4 +76,16 @@ router.delete("/deletelocation/:id", auth, (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
+router.get("/questions/:_id", auth, async (req, res) => {
+  try {
+    const data = await locationSchema
+      .findById(req.params._id)
+      .select("game image name");
+    console.log(data);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
