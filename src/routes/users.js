@@ -4,6 +4,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 const router = express.Router();
+const multer = require("multer");
+const upload = multer();
+const cloudinary = require("../../config/cloudinaryConfig");
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -138,14 +141,34 @@ router.get("/admin/getcomments", (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
-router.put("/editprofile/:id", (req, res) => {
+router.put("/editprofile/:id", upload.single('image'), async (req, res) => {
   const { id } = req.params;
   const newUser = req.body;
-  userSchema
-    .updateOne({ _id: id }, { $set: newUser })
+
+  if (req.file) {
+    try {
+      const result = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        });
+        uploadStream.end(req.file.buffer);
+      });
+      newUser.image = result.secure_url;
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
+  if (newUser.password) {
+    newUser.password = await bcrypt.hash(newUser.password, 8);
+  }
+
+  userSchema.updateOne({ _id: id }, { $set: newUser })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
+
 
 router.put("/user/sendcomment/:id", auth, async (req, res) => {
   try {
@@ -178,6 +201,23 @@ router.get("/mymodels/:id", auth, async (req, res) => {
   try {
     const models = await userSchema.findById(req.params.id).select("models");
     res.json(models);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.post("/giveAchievement/:id", auth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { id_achievement } = req.body;
+    const user = await userSchema.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    user.achievements.push({ id_achievement: id_achievement });
+    
+    await user.save();
+    res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

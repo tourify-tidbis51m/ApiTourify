@@ -152,3 +152,12 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2Qy
 ###
 GET http://localhost:3000/api/locations/questions/666f90583c47469784455e87
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjAzOTc4ODgsImV4cCI6MTcyMDQwMTQ4OH0.7adoxZCnmIz8vvVJu80jNRrSkr9rjWmFzPW8iiDnyaQ
+
+###
+POST http://localhost:3000/api/users/giveAchievement/667c6aba6f7d23af59ac11c3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjExNTk3NDgsImV4cCI6MTcyMTE2MzM0OH0.p-IizFf75f5uNr7lOvQXpQu7pyCJ1_w7f1g10KrXWh4
+Content-Type: application/json
+
+{
+  "id_achievement": "66944d9ca9723bd7b1a7541d"
+}

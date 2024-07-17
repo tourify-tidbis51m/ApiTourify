@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const achievementSchema = new mongoose.Schema({
-  id_location: String,
+  id_achievement: String,
 });
 
 const commentSchema = new mongoose.Schema({
