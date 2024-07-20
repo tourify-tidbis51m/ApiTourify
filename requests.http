@@ -161,3 +161,7 @@ Content-Type: application/json
 {
   "id_achievement": "66944d9ca9723bd7b1a7541d"
 }
+
+###
+GET http://localhost:3000/api/locations/all
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjEzNDk2NTYsImV4cCI6MTcyMTM1MzI1Nn0.SqypOdSWC3gshb21eb_6xJsShBQIfB33UFGYgSrDwxY

@@ -4,6 +4,8 @@ require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+const cors = require("cors");
+app.use(cors());
 
 //Rutas controladores
 const userRoute = require("./routes/users");

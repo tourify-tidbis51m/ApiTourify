@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const locationSchema = require("../models/location");
 const auth = require("../middleware/auth");
+const multer = require("multer");
+const upload = multer();
+const cloudinary = require("../../config/cloudinaryConfig");
 
 // Obtener todas las locations
 router.get("/", auth, async (req, res) => {
@@ -58,9 +61,117 @@ router.get("/locations-short", auth, async (req, res) => {
   }
 });
 
-router.post("/addlocation", auth, async (req, res) => {
+router.post("/addlocation", auth, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'model', maxCount: 1 }]), async (req, res) => {
   try {
-    const location = new locationSchema(req.body);
+    const {
+      name,
+      coordinate,
+      description,
+      year,
+      urlvideo,
+      pintype,
+      loctype,
+    } = req.body;
+
+    const uploadToCloudinary = (fileBuffer, resourceType = 'image') => {
+      return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream({ resource_type: resourceType }, (error, result) => {
+          if (error) return reject(error);
+          resolve(result.secure_url);
+        });
+        uploadStream.end(fileBuffer);
+      });
+    };
+
+    const imageUrl = await uploadToCloudinary(req.files.image[0].buffer);
+    const modelUrl = await uploadToCloudinary(req.files.model[0].buffer, 'auto');
+
+    const location = new locationSchema({
+      name,
+      coordinate,
+      description,
+      year,
+      urlvideo,
+      image: imageUrl,
+      pintype,
+      loctype,
+      model: modelUrl,
+    });
+
+    const data = await location.save();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.post("/addrestaurant", auth, upload.single("imagerestaurant"), async (req, res) => {
+  try {
+    const { name, coordinate, description, pintype } = req.body;
+
+    console.log(req.file);
+    console.log(name, coordinate, description, pintype);
+
+
+    const uploadToCloudinary = (fileBuffer) => {
+      return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream({ resource_type: "image" }, (error, result) => {
+          if (error) return reject(error);
+          resolve(result.secure_url);
+        });
+        uploadStream.end(fileBuffer);
+      });
+    };
+
+    let imageUrl = '';
+    if (req.file) {
+      imageUrl = await uploadToCloudinary(req.file.buffer);
+    }
+
+    const location = new locationSchema({
+      name,
+      coordinate,
+      description,
+      pintype,
+      image: imageUrl,
+    });
+
+    const data = await location.save();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.post("/addevent", auth, upload.single("imageevent"), async (req, res) => {
+  try {
+    const { name, coordinate, description, pintype, date, time } = req.body;
+
+    const uploadToCloudinary = (fileBuffer) => {
+      return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream({ resource_type: "image" }, (error, result) => {
+          if (error) return reject(error);
+          resolve(result.secure_url);
+        });
+        uploadStream.end(fileBuffer);
+      });
+    };
+
+    let imageUrl = '';
+    if (req.file) {
+      imageUrl = await uploadToCloudinary(req.file.buffer);
+    }
+
+    const location = new locationSchema({
+      name,
+      coordinate,
+      description,
+      pintype,
+      date,
+      time,
+      image: imageUrl,
+    });
+
     const data = await location.save();
     res.json(data);
   } catch (error) {

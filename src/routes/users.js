@@ -18,11 +18,11 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ message: "INCORRECT PASSWORD" });
 
   const token = jwt.sign(
-    { _id: user._id, role: user.role },
+    { _id: user._id },
     process.env.SECRET,
-    { expiresIn: "1h" }
+    { expiresIn: "20h" }
   );
-  res.header("Authorization", token).json({ token });
+  res.header("Authorization", token).json({token, id: user._id, role: user.role, name: user.name, email: user.email,});
 });
 
 //CREATE USER
