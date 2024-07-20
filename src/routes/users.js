@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
     process.env.SECRET,
     { expiresIn: "20h" }
   );
-  res.header("Authorization", token).json({token, id: user._id, role: user.role, name: user.name, email: user.email,});
+  res.header("Authorization", token).json({token, id: user._id, role: user.role, name: user.name, email: user.email, image: user.image, country: user.country});
 });
 
 //CREATE USER
