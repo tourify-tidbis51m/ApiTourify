@@ -19,13 +19,11 @@ const locationSchema = new mongoose.Schema({
   pintype: String,
   loctype: String,
   model: String,
-  objetos: [
+  modules: [
     {
-      id_objeto: String,
+      id_module: String,
       name: String,
-      description: String,
       model: String,
-      tipo: String,
     },
   ],
   game: gameSchema,

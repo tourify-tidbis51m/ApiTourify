@@ -163,5 +163,15 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/locations/all
+GET http://localhost:3001/api/locations/all
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjEzNDk2NTYsImV4cCI6MTcyMTM1MzI1Nn0.SqypOdSWC3gshb21eb_6xJsShBQIfB33UFGYgSrDwxY
+
+
+###
+POST http://localhost:3001/api/users/unlockmodel
+Content-Type: application/json
+
+{
+  "id_card":"04:A3:6B:2F:91",
+  "id_module":"123453"
+}

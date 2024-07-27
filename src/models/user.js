@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
   image: String,
   role: String,
   country: String,
+  id_card: String,
   achievements: [achievementSchema],
   comments: [commentSchema],
   models: [

@@ -22,7 +22,32 @@ router.post("/login", async (req, res) => {
     process.env.SECRET,
     { expiresIn: "20h" }
   );
-  res.header("Authorization", token).json({token, id: user._id, role: user.role, name: user.name, email: user.email, image: user.image, country: user.country, achievements: user.achievements, models: user.models});
+  res.header("Authorization", token).json({token, id: user._id, role: user.role, name: user.name, email: user.email, image: user.image, country: user.country});
+});
+
+//REGISTER MOBILE
+router.post("/registermobile", async (req, res) => {
+  try {
+    const user = new userSchema(req.body);
+    const savedUser = await user.save();
+
+    const token = jwt.sign(
+      { _id: savedUser._id },
+      process.env.SECRET,
+      { expiresIn: "20h" }
+    );
+
+    res.json({
+      token,
+      id: savedUser._id,
+      name: savedUser.name,
+      email: savedUser.email,
+      image: "https://res.cloudinary.com/dnfonffpd/image/upload/v1721190630/user_v3pvmm.png",
+      country: "México",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 //CREATE USER
@@ -191,6 +216,7 @@ router.put("/user/sendcomment/:id", auth, async (req, res) => {
 
 router.post("/createuser", (req, res) => {
   const user = userSchema(req.body);
+  
   user
     .save()
     .then((data) => res.json(data))
@@ -221,6 +247,60 @@ router.post("/giveAchievement/:id", auth, async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+});
+
+router.post("/unlockmodel", async (req, res) => {
+  try {
+    const { id_card, id_module } = req.body;
+    console.log(id_card);
+    console.log(id_module)
+    const user = await userSchema.findOne({id_card: id_card});
+    console.log(user)
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    if (user.models.some(m => m.model === id_module)) {
+      return res.status(400).json({ message: 'Model already added' });
+    }
+    user.models.push({ id_module: id_module });
+    await user.save();
+    res.json("Model added successfully");
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.post("/addCard", auth, async (req, res) => {
+  try {
+    const { id_card, email } = req.body;
+    const user = await userSchema.findOne({email: email});
+    if (!user) {
+      return res.status(404).json({ message: 'Email no encontrado' });
+    }
+    const existingCard = await userSchema.findOne({
+      id_card: id_card
+    });
+    if (existingCard) {
+      await userSchema.updateOne(
+        { _id: existingCard._id },
+        { $unset: { id_card: "" } }
+      );
+    }
+    user.id_card = id_card
+    await user.save();
+    res.json({ message: 'Tarjeta agregada correctamente' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.post("/checkEmail", async (req, res) => {
+  const { email } = req.body;
+  const user = await userSchema.findOne({ email });
+  if (user) {
+    return res.status(400).json({ message: 'Email ya registrado' });
+  }
+  res.json({ message: 'Email disponible' });
 });
 
 module.exports = router;
