@@ -1,5 +1,6 @@
 const express = require("express");
 const userSchema = require("../models/user");
+const locationSchema = require("../models/location");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
@@ -17,12 +18,18 @@ router.post("/login", async (req, res) => {
   if (!validPassword)
     return res.status(400).json({ message: "INCORRECT PASSWORD" });
 
-  const token = jwt.sign(
-    { _id: user._id },
-    process.env.SECRET,
-    { expiresIn: "20h" }
-  );
-  res.header("Authorization", token).json({token, id: user._id, role: user.role, name: user.name, email: user.email, image: user.image, country: user.country});
+  const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
+    expiresIn: "20h",
+  });
+  res.header("Authorization", token).json({
+    token,
+    id: user._id,
+    role: user.role,
+    name: user.name,
+    email: user.email,
+    image: user.image,
+    country: user.country,
+  });
 });
 
 //REGISTER MOBILE
@@ -31,18 +38,17 @@ router.post("/registermobile", async (req, res) => {
     const user = new userSchema(req.body);
     const savedUser = await user.save();
 
-    const token = jwt.sign(
-      { _id: savedUser._id },
-      process.env.SECRET,
-      { expiresIn: "20h" }
-    );
+    const token = jwt.sign({ _id: savedUser._id }, process.env.SECRET, {
+      expiresIn: "20h",
+    });
 
     res.json({
       token,
       id: savedUser._id,
       name: savedUser.name,
       email: savedUser.email,
-      image: "https://res.cloudinary.com/dnfonffpd/image/upload/v1721190630/user_v3pvmm.png",
+      image:
+        "https://res.cloudinary.com/dnfonffpd/image/upload/v1721190630/user_v3pvmm.png",
       country: "México",
     });
   } catch (error) {
@@ -166,17 +172,20 @@ router.get("/admin/getcomments", (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
-router.put("/editprofile/:id", upload.single('image'), async (req, res) => {
+router.put("/editprofile/:id", upload.single("image"), async (req, res) => {
   const { id } = req.params;
   const newUser = req.body;
 
   if (req.file) {
     try {
       const result = await new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
-          if (error) return reject(error);
-          resolve(result);
-        });
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { resource_type: "image" },
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result);
+          }
+        );
         uploadStream.end(req.file.buffer);
       });
       newUser.image = result.secure_url;
@@ -189,11 +198,11 @@ router.put("/editprofile/:id", upload.single('image'), async (req, res) => {
     newUser.password = await bcrypt.hash(newUser.password, 8);
   }
 
-  userSchema.updateOne({ _id: id }, { $set: newUser })
+  userSchema
+    .updateOne({ _id: id }, { $set: newUser })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-
 
 router.put("/user/sendcomment/:id", auth, async (req, res) => {
   try {
@@ -216,7 +225,7 @@ router.put("/user/sendcomment/:id", auth, async (req, res) => {
 
 router.post("/createuser", (req, res) => {
   const user = userSchema(req.body);
-  
+
   user
     .save()
     .then((data) => res.json(data))
@@ -238,33 +247,12 @@ router.post("/giveAchievement/:id", auth, async (req, res) => {
     const { id_achievement } = req.body;
     const user = await userSchema.findById(id);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
     user.achievements.push({ id_achievement: id_achievement });
-    
+
     await user.save();
     res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-router.post("/unlockmodel", async (req, res) => {
-  try {
-    const { id_card, id_module } = req.body;
-    console.log(id_card);
-    console.log(id_module)
-    const user = await userSchema.findOne({id_card: id_card});
-    console.log(user)
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    if (user.models.some(m => m.model === id_module)) {
-      return res.status(400).json({ message: 'Model already added' });
-    }
-    user.models.push({ id_module: id_module });
-    await user.save();
-    res.json("Model added successfully");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -273,12 +261,12 @@ router.post("/unlockmodel", async (req, res) => {
 router.post("/addCard", auth, async (req, res) => {
   try {
     const { id_card, email } = req.body;
-    const user = await userSchema.findOne({email: email});
+    const user = await userSchema.findOne({ email: email });
     if (!user) {
-      return res.status(404).json({ message: 'Email no encontrado' });
+      return res.status(404).json({ message: "Email no encontrado" });
     }
     const existingCard = await userSchema.findOne({
-      id_card: id_card
+      id_card: id_card,
     });
     if (existingCard) {
       await userSchema.updateOne(
@@ -286,9 +274,9 @@ router.post("/addCard", auth, async (req, res) => {
         { $unset: { id_card: "" } }
       );
     }
-    user.id_card = id_card
+    user.id_card = id_card;
     await user.save();
-    res.json({ message: 'Tarjeta agregada correctamente' });
+    res.json({ message: "Tarjeta agregada correctamente" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -298,9 +286,40 @@ router.post("/checkEmail", async (req, res) => {
   const { email } = req.body;
   const user = await userSchema.findOne({ email });
   if (user) {
-    return res.status(400).json({ message: 'Email ya registrado' });
+    return res.status(400).json({ message: "Email ya registrado" });
   }
-  res.json({ message: 'Email disponible' });
+  res.json({ message: "Email disponible" });
+});
+
+router.post("/unlockmodel", async (req, res) => {
+  try {
+    const { id_card, id_module } = req.body;
+    if (!id_card) {
+      return res.json({ message: "Missing data" });
+    }
+    if (!id_module) {
+      return res.json({ message: "Missing module" });
+    }
+    const user = await userSchema.findOne({ id_card: id_card });
+    if (!user) {
+      return res.json({ message: "User not found" });
+    }
+    if (user.models.some((m) => m.id_module === id_module)) {
+      return res.json({ message: "Model already added" });
+    }
+    const location = await locationSchema
+      .findOne({ "modules.id_module": id_module })
+      .select("modules");
+    if (!location) {
+      return res.json({ message: "Module not found" });
+    }
+    const module = location.modules.find((m) => m.id_module === id_module);
+    user.models.push({ id_module: id_module, model: module.model });
+    await user.save();
+    res.json({ message: "Model added successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 module.exports = router;

@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
   comments: [commentSchema],
   models: [
     {
+      id_module: String,
       model: String,
     },
   ],

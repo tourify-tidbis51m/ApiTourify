@@ -151,7 +151,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2Qy
 
 ###
 GET http://localhost:3000/api/locations/questions/666f90583c47469784455e87
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjAzOTc4ODgsImV4cCI6MTcyMDQwMTQ4OH0.7adoxZCnmIz8vvVJu80jNRrSkr9rjWmFzPW8iiDnyaQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2QyM2FmNTlhYzExYzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjI0NjgxNTMsImV4cCI6MTcyMjQ3MTc1M30.GfGVMGvfVO8aQXw6Ndy9ugSf2CVTirEi0j3zi6ACCQc
 
 ###
 POST http://localhost:3000/api/users/giveAchievement/667c6aba6f7d23af59ac11c3
@@ -168,10 +168,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdjNmFiYTZmN2Qy
 
 
 ###
-POST http://localhost:3001/api/users/unlockmodel
+POST http://localhost:3000/api/users/unlockmodel
 Content-Type: application/json
 
 {
-  "id_card":"04:A3:6B:2F:91",
-  "id_module":"123453"
+  "id_card":"B61C6E80",
+  "id_module":"8932D90"
 }
